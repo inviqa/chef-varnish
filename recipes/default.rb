@@ -70,4 +70,13 @@ template "#{node[:varnish][:daemon_config]}" do
   mode 0644
 end
 
+service "varnish" do
+  supports :restart => true, :reload => true
+  action [ :enable, :start ]
+end
+
+service "varnishlog" do
+  supports :restart => true, :reload => true
+  action [ :enable, :start ]
+end
 

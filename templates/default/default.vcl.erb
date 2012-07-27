@@ -5,8 +5,8 @@
 # server.
 # 
 backend default {
-  .host = "127.0.0.1";
-  .port = "80";
+  .host = "<%= node[:varnish][:VARNISH_BACKEND_ADDRESS] %>";
+  .port = "<%= node[:varnish][:VARNISH_BACKEND_PORT] %>";
 }
 # 
 # Below is a commented-out copy of the default VCL logic.  If you
