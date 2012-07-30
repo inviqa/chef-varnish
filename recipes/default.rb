@@ -56,7 +56,7 @@ package "varnish" do
   action :install
 end
 
-template "#{node[:varnish][:config_dir]}default.vcl" do
+template "#{node[:varnish][:config_dir]}/default.vcl" do
   source "default.vcl.erb"
   owner "root"
   group "root"
