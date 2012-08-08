@@ -18,7 +18,7 @@
 #
 
 
-if platform?("redhat", "centos", "fedora")
+if platform?("redhat", "centos", "fedora", "amazon", "scientific")
   include_recipe "yum"
   bash "varnish-cache.org" do
     user "root"
@@ -29,21 +29,10 @@ if platform?("redhat", "centos", "fedora")
   end
 end
 
-if platform?("ubuntu")
+if platform?("ubuntu", "debian")
   include_recipe "apt"
   apt_repository "varnish-cache.org" do
-    uri "http://repo.varnish-cache.org/ubuntu/"
-    distribution node['lsb']['codename']
-    components ["main"]
-    key "http://repo.varnish-cache.org/debian/GPG-key.txt"
-    deb_src true
-    notifies :run, resources(:execute => "apt-get update"), :immediately
-  end
-end
-
-if platform?("debian")
-  apt_repository "varnish-cache.org" do
-    uri "http://repo.varnish-cache.org/debian/"
+    uri "http://repo.varnish-cache.org/#{:platform}/"
     distribution node['lsb']['codename']
     components ["main"]
     key "http://repo.varnish-cache.org/debian/GPG-key.txt"
@@ -56,14 +45,14 @@ package "varnish" do
   action :install
 end
 
-template "#{node[:varnish][:config_dir]}/default.vcl" do
+template "#{node['varnish']['config_dir']}/default.vcl" do
   source "default.vcl.erb"
   owner "root"
   group "root"
   mode 0644
 end
 
-template "#{node[:varnish][:daemon_config]}" do
+template node['varnish']['daemon_config'] do
   source "varnish.erb"
   owner "root"
   group "root"
@@ -79,4 +68,3 @@ service "varnishlog" do
   supports :restart => true, :reload => true
   action [ :enable, :start ]
 end
-

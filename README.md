@@ -2,7 +2,8 @@
 
 Installs and configures [Varnish](https://www.varnish-cache.org/) HTTP Accelerator. Varnish is installed from the [varnish-cache.org] repos to ensure the most up to date stable release is available. All aspects of the software can be tuned using the attributes available within the cookbook.
 
-[![Build Status](https://secure.travis-ci.org/inviqa/chef-varnish.png?branch=master)](http://travis-ci.org/inviqa/chef-varnish)
+[![Master Build Status](https://secure.travis-ci.org/inviqa/chef-varnish.png?branch=master)](http://travis-ci.org/inviqa/chef-varnish)
+[![Develop Build Status](https://secure.travis-ci.org/inviqa/chef-varnish.png?branch=develop)](http://travis-ci.org/inviqa/chef-varnish)
 
 # Requirements
 
@@ -23,22 +24,22 @@ The following Opscode cookbooks are dependencies:
 
 Available attributes and default values:
 
-* `node[:varnish][:daemon_config]` = "/etc/sysconfig/varnish"
-* `node[:varnish][:config_dir]` = "/etc/varnish"
-* `node[:varnish][:VARNISH_VCL_CONF]` = "/etc/varnish/default.vcl"
-* `node[:varnish][:VARNISH_LISTEN_PORT]` = 6081
-* `node[:varnish][:VARNISH_BACKEND_PORT]` = 80
-* `node[:varnish][:VARNISH_BACKEND_ADDRESS]` = "127.0.0.1"
-* `node[:varnish][:VARNISH_ADMIN_LISTEN_ADDRESS]` = "127.0.0.1"
-* `node[:varnish][:VARNISH_ADMIN_LISTEN_PORT]` = 6082
-* `node[:varnish][:VARNISH_SECRET_FILE]` = "/etc/varnish/secret"
-* `node[:varnish][:VARNISH_MIN_THREADS]` = 1
-* `node[:varnish][:VARNISH_MAX_THREADS]` = 1000
-* `node[:varnish][:VARNISH_THREAD_TIMEOUT]` = 120
-* `node[:varnish][:VARNISH_STORAGE_FILE]` = "/var/lib/varnish/varnish_storage.bin"
-* `node[:varnish][:VARNISH_STORAGE_SIZE]` = "1G"
-* `node[:varnish][:VARNISH_STORAGE]` = "malloc" # file | malloc | persistent
-* `node[:varnish][:VARNISH_TTL]` = 120
+* `node['varnish']['daemon_config']` = "/etc/sysconfig/varnish"
+* `node['varnish']['config_dir']` = "/etc/varnish"
+* `node['varnish']['VARNISH_VCL_CONF']` = "/etc/varnish/default.vcl"
+* `node['varnish']['VARNISH_LISTEN_PORT']` = 6081
+* `node['varnish']['VARNISH_BACKEND_PORT']` = 80
+* `node['varnish']['VARNISH_BACKEND_ADDRESS']` = "127.0.0.1"
+* `node['varnish']['VARNISH_ADMIN_LISTEN_ADDRESS']` = "127.0.0.1"
+* `node['varnish']['VARNISH_ADMIN_LISTEN_PORT']` = 6082
+* `node['varnish']['VARNISH_SECRET_FILE']` = "/etc/varnish/secret"
+* `node['varnish']['VARNISH_MIN_THREADS']` = 1
+* `node['varnish']['VARNISH_MAX_THREADS']` = 1000
+* `node['varnish']['VARNISH_THREAD_TIMEOUT']` = 120
+* `node['varnish']['VARNISH_STORAGE_FILE']` = "/var/lib/varnish/varnish_storage.bin"
+* `node['varnish']['VARNISH_STORAGE_SIZE']` = "1G"
+* `node['varnish']['VARNISH_STORAGE']` = "malloc" # file | malloc | persistent
+* `node['varnish']['VARNISH_TTL']` = 120
 
 
 # Recipes
