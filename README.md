@@ -2,6 +2,8 @@
 
 Installs and configures [Varnish](https://www.varnish-cache.org/) HTTP Accelerator. Varnish is installed from the [varnish-cache.org] repos to ensure the most up to date stable release is available. All aspects of the software can be tuned using the attributes available within the cookbook.
 
+[![Build Status](https://secure.travis-ci.org/inviqa/chef-varnish.png?branch=master)](http://travis-ci.org/inviqa/chef-varnish)
+
 # Requirements
 
 Chef 0.10.0 or higher required (for Chef environment use).
