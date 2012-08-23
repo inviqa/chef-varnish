@@ -50,6 +50,9 @@ template "#{node['varnish']['config_dir']}/default.vcl" do
   owner "root"
   group "root"
   mode 0644
+  variables(
+    :params => node['varnish']
+  )
 end
 
 template node['varnish']['daemon_config'] do
@@ -57,6 +60,9 @@ template node['varnish']['daemon_config'] do
   owner "root"
   group "root"
   mode 0644
+  variables(
+    :params => node['varnish']
+  )
 end
 
 service "varnish" do
