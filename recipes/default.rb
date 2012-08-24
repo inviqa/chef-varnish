@@ -19,7 +19,6 @@
 
 
 if platform?("redhat", "centos", "fedora", "amazon", "scientific")
-  include_recipe "yum"
   bash "varnish-cache.org" do
     user "root"
     code <<-EOH
@@ -41,6 +40,10 @@ if platform?("ubuntu", "debian")
   end
 end
 
+package "varnish-release" do
+  action :install
+end
+
 package "varnish" do
   action :install
 end
@@ -50,6 +53,9 @@ template "#{node['varnish']['config_dir']}/default.vcl" do
   owner "root"
   group "root"
   mode 0644
+  variables(
+    :params => node['varnish']
+  )
 end
 
 template node['varnish']['daemon_config'] do
@@ -57,6 +63,9 @@ template node['varnish']['daemon_config'] do
   owner "root"
   group "root"
   mode 0644
+  variables(
+    :params => node['varnish']
+  )
 end
 
 service "varnish" do
