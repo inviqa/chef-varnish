@@ -19,7 +19,6 @@
 
 
 if platform?("redhat", "centos", "fedora", "amazon", "scientific")
-  include_recipe "yum"
   bash "varnish-cache.org" do
     user "root"
     code <<-EOH
@@ -39,6 +38,10 @@ if platform?("ubuntu", "debian")
     deb_src true
     notifies :run, resources(:execute => "apt-get update"), :immediately
   end
+end
+
+package "varnish-release" do
+  action :install
 end
 
 package "varnish" do
