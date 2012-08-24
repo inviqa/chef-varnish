@@ -18,14 +18,13 @@
 #
 
 
-if platform?("redhat", "centos", "fedora", "amazon", "scientific")
-  bash "varnish-cache.org" do
-    user "root"
-    code <<-EOH
-    rpm --nosignature -i http://repo.varnish-cache.org/redhat/varnish-3.0/el5/noarch/varnish-release-3.0-1.noarch.rpm
-    yum -y update
-    EOH
-  end
+bash "varnish-cache.org" do
+  user "root"
+  code <<-EOH
+  rpm --nosignature -i http://repo.varnish-cache.org/redhat/varnish-3.0/el5/noarch/varnish-release-3.0-1.noarch.rpm
+  yum -y update
+  EOH
+  only_if {platform?("redhat", "centos", "fedora", "amazon", "scientific")}
 end
 
 if platform?("ubuntu", "debian")
