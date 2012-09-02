@@ -1,0 +1,3 @@
+cookbook "chef-varnish" do
+  runtimes []
+end
