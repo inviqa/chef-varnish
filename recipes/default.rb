@@ -39,12 +39,19 @@ if platform?("ubuntu", "debian")
   end
 end
 
-package "varnish-release" do
-  action :install
-end
+pkgs = value_for_platform(
+  [ "centos", "redhat", "fedora" ] => {
+    "default" => %w{ varnish-release varnish }
+  },
+  [ "debian", "ubuntu" ] => {
+    "default" => %w{ varnish }
+  }
+)
 
-package "varnish" do
-  action :install
+pkgs.each do |pkg|
+  package pkg do
+    action :install
+  end
 end
 
 template "#{node['varnish']['config_dir']}/default.vcl" do
