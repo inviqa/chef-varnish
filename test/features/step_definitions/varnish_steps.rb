@@ -12,7 +12,7 @@ Then /^I should see ping$/ do
 end
 
 When /^the service status is requested$/ do
-  pending # express the regexp above with the code you wish you had
+  @status = `sudo service varnish status`
 end
 
 Then /^it should be running$/ do
