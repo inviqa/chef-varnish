@@ -21,7 +21,7 @@
 bash "varnish-cache.org" do
   user "root"
   code <<-EOH
-  rpm --nosignature -i http://repo.varnish-cache.org/redhat/varnish-3.0/el5/noarch/varnish-release-3.0-1.noarch.rpm
+    rpm -q varnish || rpm --nosignature -i http://repo.varnish-cache.org/redhat/varnish-3.0/el5/noarch/varnish-release-3.0-1.noarch.rpm
   EOH
   only_if {platform?("redhat", "centos", "fedora", "amazon", "scientific")}
 end
