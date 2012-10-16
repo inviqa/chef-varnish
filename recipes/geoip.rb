@@ -14,18 +14,18 @@ else
 
     bash "download geolite data" do
         cwd "/tmp"
-        code <<=EOH
+        code <<-EOH
             rm -f "GeoIP.dat.gz" && wget "http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz" || exit 1
             zcat "GeoIP.dat.gz" > "/usr/share/GeoIP/GeoIP.dat"
-        EOH
-        not if "test -f /usr/share/GeoIP/GeoIP.dat"
+EOH
+        not_if "test -f /usr/share/GeoIP/GeoIP.dat"
     end
 
     bash "compile varnish geoip ext" do
       cwd "/usr/src/varnish-geoip"
       code <<-EOH
         make && test $(./geoip 141.0.34.138) = GB && cp geoip.vcl /etc/varnish/geoip.vcl
-      EOH
+EOH
     end
 
 end
