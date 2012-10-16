@@ -54,6 +54,10 @@ pkgs.each do |pkg|
   end
 end
 
+if node['varnish']['GeoIP_enabled']
+  include_recipe "chef-varnish::geoip"
+end
+
 template "#{node['varnish']['config_dir']}/default.vcl" do
   source "default.vcl.erb"
   owner "root"
