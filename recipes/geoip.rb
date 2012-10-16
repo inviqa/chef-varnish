@@ -24,7 +24,7 @@ else
     bash "compile varnish geoip ext" do
       cwd "/usr/src/varnish-geoip"
       code <<-EOH
-        make && test $(./geoip 141.0.34.138) = GB && cp geoip.vcl /etc/varnish/geoip.vcl
+        make && test $(./geoip 213.236.208.22) = NO && cp geoip.vcl /etc/varnish/geoip.vcl
 EOH
     end
 
