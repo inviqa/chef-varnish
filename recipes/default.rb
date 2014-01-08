@@ -22,7 +22,7 @@ if platform?("redhat", "centos", "fedora", "amazon", "scientific")
   bash "varnish-cache.org" do
     user "root"
     code <<-EOH
-      rpm -q varnish || rpm --nosignature -i #{node['varnish']['release_rpm']}
+      rpm -q varnish-release || rpm --nosignature -i #{node['varnish']['release_rpm']}
     EOH
   end
   ruby_block "Flush yum cache" do
