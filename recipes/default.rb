@@ -45,7 +45,7 @@ if platform?("ubuntu", "debian")
 end
 
 pkgs = value_for_platform(
-  [ "centos", "redhat", "fedora" ] => {
+  [ "centos", "redhat", "fedora", "amazon" ] => {
     "default" => %w{ varnish-release varnish }
   },
   [ "debian", "ubuntu" ] => {
