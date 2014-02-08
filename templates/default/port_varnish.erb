@@ -1,2 +1,2 @@
-# Open the varnish listening port <%= @params[:VARNISH_LISTEN_PORT] %> 
--A FWR -p tcp -m tcp --dport <%= @params[:VARNISH_LISTEN_PORT] %> -j ACCEPT
+# Open the varnish listening port <%= @port %> 
+-A FWR -p tcp -m tcp --dport <%= @port %> -j ACCEPT
