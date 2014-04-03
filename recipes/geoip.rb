@@ -17,7 +17,7 @@ if File.exists?("/etc/varnish/geoip.vcl")
 else
 
     git '/usr/src/varnish-geoip' do
-        repository 'git://github.com/svalaskevicius/varnish-geoip.git'
+        repository 'https://github.com/svalaskevicius/varnish-geoip.git'
         reference 'develop'
     end
 
