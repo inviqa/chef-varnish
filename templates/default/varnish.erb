@@ -110,7 +110,7 @@ DAEMON_OPTS="-a ${VARNISH_LISTEN_ADDRESS}:${VARNISH_LISTEN_PORT} \
              <% if node['varnish']['GeoIP_enabled'] %>
                  -p 'cc_command=exec cc -fpic -shared -Wl,-x -L/usr/local/lib -lGeoIP -o %o %s' \
              <% end %>
-             <% if node['varnish']['maximum_headers'] %>
+             <% if node['varnish']['maximum_headers'] > 0 %>
                  -p 'http_max_hdr=<%= node['varnish']['maximum_headers'] %>' \
              <% end %>
              -s ${VARNISH_STORAGE}"
