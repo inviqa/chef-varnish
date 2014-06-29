@@ -110,6 +110,9 @@ DAEMON_OPTS="-a ${VARNISH_LISTEN_ADDRESS}:${VARNISH_LISTEN_PORT} \
              <% if node['varnish']['GeoIP_enabled'] %>
                  -p 'cc_command=exec cc -fpic -shared -Wl,-x -L/usr/local/lib -lGeoIP -o %o %s' \
              <% end %>
+             <% if node['varnish']['AllowNonXmlEsi'] %>
+                 -p esi_syntax=0x00000003
+             <% end %>
              -s ${VARNISH_STORAGE}"
 #
 
