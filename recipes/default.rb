@@ -18,7 +18,7 @@
 #
 
 
-if platform?("redhat", "centos", "fedora", "amazon", "scientific")
+if platform_family?("rhel", "fedora", "suse")
   bash "varnish-cache.org" do
     user "root"
     code <<-EOH
@@ -44,11 +44,11 @@ if platform?("ubuntu", "debian")
   end
 end
 
-pkgs = value_for_platform(
-  [ "centos", "redhat", "fedora" ] => {
+pkgs = value_for_platform_family(
+  [ "rhel", "fedora", "suse" ] => {
     "default" => %w{ varnish-release varnish }
   },
-  [ "debian", "ubuntu" ] => {
+  [ "debian" ] => {
     "default" => %w{ varnish }
   }
 )
