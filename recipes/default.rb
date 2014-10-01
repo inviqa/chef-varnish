@@ -45,12 +45,8 @@ if platform?("ubuntu", "debian")
 end
 
 pkgs = value_for_platform_family(
-  [ "rhel", "fedora", "suse" ] => {
-    "default" => %w{ varnish-release varnish }
-  },
-  [ "debian" ] => {
-    "default" => %w{ varnish }
-  }
+  [ "rhel", "fedora", "suse" ] => %w{ varnish-release varnish },
+  [ "debian" ] => %w{ varnish }
 )
 
 pkgs.each do |pkg|
