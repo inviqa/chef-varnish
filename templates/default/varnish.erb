@@ -110,8 +110,10 @@ DAEMON_OPTS="-a ${VARNISH_LISTEN_ADDRESS}:${VARNISH_LISTEN_PORT} \
              <% if node['varnish']['GeoIP_enabled'] %>
                  -p 'cc_command=exec cc -fpic -shared -Wl,-x -L/usr/local/lib -lGeoIP -o %o %s' \
              <% end %>
-             -s ${VARNISH_STORAGE}"
-#
+             -s ${VARNISH_STORAGE} \
+             <%= (node['varnish']['custom_parameters'] || []).map { |param_key, param_value|
+                 "-p #{Shellwords.escape(param_key)}=#{Shellwords.escape(param_value)}" }.join(" \\\n") 
+             %>"
 
 
 ## Alternative 4, Do It Yourself. See varnishd(1) for more information.

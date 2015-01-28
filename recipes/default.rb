@@ -17,6 +17,7 @@
 # limitations under the License.
 #
 
+require 'shellwords'
 
 if platform?("redhat", "centos", "fedora", "amazon", "scientific")
   bash "varnish-cache.org" do
