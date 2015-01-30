@@ -18,11 +18,11 @@
 #
 
 
-if platform?("redhat", "centos", "fedora", "amazon", "scientific")
+if platform_family?("rhel", "fedora", "suse")
   bash "varnish-cache.org" do
     user "root"
     code <<-EOH
-      rpm -q varnish || rpm --nosignature -i #{node['varnish']['release_rpm']}
+      rpm -q varnish-release || rpm --nosignature -i #{node['varnish']['release_rpm']}
     EOH
   end
   ruby_block "Flush yum cache" do
@@ -44,13 +44,9 @@ if platform?("ubuntu", "debian")
   end
 end
 
-pkgs = value_for_platform(
-  [ "centos", "redhat", "fedora" ] => {
-    "default" => %w{ varnish-release varnish }
-  },
-  [ "debian", "ubuntu" ] => {
-    "default" => %w{ varnish }
-  }
+pkgs = value_for_platform_family(
+  [ "rhel", "fedora", "suse" ] => %w{ varnish-release varnish },
+  [ "debian" ] => %w{ varnish }
 )
 
 pkgs.each do |pkg|

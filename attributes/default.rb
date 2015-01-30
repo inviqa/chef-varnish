@@ -1,7 +1,7 @@
-case platform
-when "redhat", "centos", "fedora", "amazon", "scientific"
+case platform_family
+when "rhel", "fedora", "suse"
   default['varnish']['daemon_config'] = "/etc/sysconfig/varnish"
-when "debian","ubuntu"
+when "debian"
   default['varnish']['daemon_config'] = "/etc/default/varnish"
 end
 
