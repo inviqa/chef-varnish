@@ -17,6 +17,7 @@
 # limitations under the License.
 #
 
+require 'shellwords'
 
 if platform_family?("rhel", "fedora", "suse")
   bash "varnish-cache.org" do
