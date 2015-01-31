@@ -30,9 +30,9 @@ GEM
     builder (3.2.2)
     celluloid (0.16.0)
       timers (~> 4.0.0)
-    celluloid-io (0.16.1)
+    celluloid-io (0.16.2)
       celluloid (>= 0.16.0)
-      nio4r (>= 1.0.0)
+      nio4r (>= 1.1.0)
     chef (11.16.4)
       chef-zero (~> 2.1, >= 2.1.4)
       diff-lcs (~> 1.2, >= 1.2.4)
@@ -99,6 +99,8 @@ GEM
       multi_xml
     ipaddress (0.8.0)
     json (1.8.2)
+    kitchen-vagrant (0.15.0)
+      test-kitchen (~> 1.0)
     libyajl2 (1.2.0)
     method_source (0.8.2)
     mime-types (1.25.1)
@@ -199,6 +201,7 @@ GEM
       hitimes
     treetop (1.5.3)
       polyglot (~> 0.3)
+    vagrant-wrapper (2.0.2)
     varia_model (0.3.2)
       buff-extensions (~> 0.2)
       hashie (>= 2.0.2)
@@ -215,7 +218,9 @@ DEPENDENCIES
   cucumber (~> 1.2.1)
   foodcritic (~> 4.0.0)
   httparty (~> 0.8.3)
+  kitchen-vagrant
   minitest (~> 3.0.0)
   nokogiri (~> 1.5.0)
   rake
   test-kitchen
+  vagrant-wrapper
