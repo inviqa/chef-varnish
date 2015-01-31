@@ -6,6 +6,7 @@ Feature: Varnish service
 
   Scenario: varnishd
     Given Varnish is installed
+    And Varnish is started
     When the service status is requested
     Then it should be running
 
