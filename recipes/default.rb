@@ -46,7 +46,7 @@ if platform_family?('debian')
   apt_repository 'varnish-cache.org' do
     uri 'http://repo.varnish-cache.org/#{:platform}/'
     distribution node['lsb']['codename']
-    components ['main']
+    components ['varnish-3.0']
     key 'http://repo.varnish-cache.org/debian/GPG-key.txt'
     deb_src true
     notifies :run, "execute[apt-get update]", :immediately
