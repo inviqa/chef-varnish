@@ -41,7 +41,7 @@ if platform?("ubuntu", "debian")
     components ["main"]
     key "http://repo.varnish-cache.org/debian/GPG-key.txt"
     deb_src true
-    notifies :run, resources(:execute => "apt-get update"), :immediately
+    notifies :run, "execute[apt-get update]", :immediately
   end
 end
 
