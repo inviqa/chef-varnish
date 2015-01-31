@@ -14,7 +14,7 @@ end
 
 # test task
 desc 'Run the default tests'
-task :test =>  ['prepare_sandbox', 'knife', 'foodcritic']
+task :test =>  ['prepare_sandbox', 'knife', 'foodcritic', 'spec']
 
 # default task (test)
 task :default => :test
@@ -56,4 +56,11 @@ desc 'Run specs'
 RSpec::Core::RakeTask.new do |t|
   Rake::Task[:prepare_sandbox].invoke
   t.pattern = File.join(sandbox_path, 'spec/**/*_spec.rb')
+end
+
+begin
+  require "kitchen/rake_tasks"
+  Kitchen::RakeTasks.new
+rescue LoadError
+  puts ">>>>> Kitchen gem not loaded, omitting tasks" unless ENV["CI"]
 end
