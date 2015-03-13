@@ -78,6 +78,12 @@ VARNISH_MAX_THREADS=<%= @params[:VARNISH_MAX_THREADS] %>
 # # Idle timeout for worker threads
 VARNISH_THREAD_TIMEOUT=<%= @params[:VARNISH_THREAD_TIMEOUT] %>
 #
+# # Thread pool minimum
+VARNISH_THREAD_POOL_MIN=<%= @params[:VARNISH_THREAD_POOL_MIN] %>
+#
+# # Thread pool maximum
+VARNISH_THREAD_POOL_MAX=<%= @params[:VARNISH_THREAD_POOL_MAX] %>
+#
 # # Cache file location
 VARNISH_STORAGE_FILE=<%= @params[:VARNISH_STORAGE_FILE] %>
 #
@@ -110,7 +116,7 @@ DAEMON_OPTS="-a ${VARNISH_LISTEN_ADDRESS}:${VARNISH_LISTEN_PORT} \
              <% if node['varnish']['GeoIP_enabled'] %>
                  -p 'cc_command=exec cc -fpic -shared -Wl,-x -L/usr/local/lib -lGeoIP -o %o %s' \
              <% end %>
-             -s ${VARNISH_STORAGE} \
+             -s ${VARNISH_STORAGE},${VARNISH_STORAGE_SIZE} \
              <%= (node['varnish']['custom_parameters'] || []).map { |param_key, param_value|
                  "-p #{Shellwords.escape(param_key)}=#{Shellwords.escape(param_value)}" }.join(" \\\n") 
              %>"
