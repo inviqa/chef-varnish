@@ -24,6 +24,7 @@ backend default {
   .connect_timeout = <%= @params[:VARNISH_BACKEND_CONNECT_TIMEOUT] %>;
   .first_byte_timeout = <%= @params[:VARNISH_BACKEND_FIRST_BYTE_TIMEOUT] %>;
   .between_bytes_timeout = <%= @params[:VARNISH_BACKEND_BETWEEN_BYTES_TIMEOUT] %>;
+  .max_connections = <%= @params[:VARNISH_BACKEND_MAX_CONNECTIONS] %>;
 }
 
 # Below is a commented-out copy of the default VCL logic.  If you
