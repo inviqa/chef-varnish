@@ -64,6 +64,21 @@ backend default {
 #         /* Not cacheable by default */
 #         return (pass);
 #     }
+#     if (req.url ~ "^/crossdomain.xml$")) {
+#         set beresp.do_gzip = true;
+#         set beresp.ttl = 604800s;
+#         set beresp.http.Cache-Control = "max-age=604800";
+#     } else if (req.url ~ "\.(js|css)$") {
+#         set beresp.do_gzip = true;
+#         set beresp.ttl = 86400s; // 1 day
+#         set beresp.http.Cache-Control = "max-age=86400";
+#     } else if (req.url ~ "\.(gif|jpg|png)$") {
+#         set beresp.ttl = 2592000s; // 1 month
+#         set beresp.http.Cache-Control = "max-age=2592000";
+#     } else {
+#         set beresp.ttl = 300s;
+#         set beresp.http.Cache-Control = "max-age=300";
+#     }
 #     return (lookup);
 # }
 # 
