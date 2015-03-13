@@ -7,10 +7,23 @@ include "/etc/varnish/geoip.vcl";
 
 # Default backend definition.  Set this to point to your content
 # server.
-# 
+#
+probe default_probe {
+  .url = "<%= @params[:VARNISH_PROBE_URL] %>";
+  .interval = <%= @params[:VARNISH_PROBE_INTERVAL] %>;
+  .timeout = <%= @params[:VARNISH_PROBE_TIMEOUT] %>;
+  .window = <%= @params[:VARNISH_PROBE_WINDOW] %>;
+  .threshold = <%= @params[:VARNISH_PROBE_THRESHOLD] %>;
+  .expected_response = <%= @params[:VARNISH_PROBE_EXPECTED_RESPONSE] %>;
+}
+
 backend default {
   .host = "<%= @params[:VARNISH_BACKEND_ADDRESS] %>";
   .port = "<%= @params[:VARNISH_BACKEND_PORT] %>";
+  .probe = default_probe;
+  .connect_timeout = <%= @params[:VARNISH_BACKEND_CONNECT_TIMEOUT] %>;
+  .first_byte_timeout = <%= @params[:VARNISH_BACKEND_FIRST_BYTE_TIMEOUT] %>;
+  .between_bytes_timeout = <%= @params[:VARNISH_BACKEND_BETWEEN_BYTES_TIMEOUT] %>;
 }
 
 # Below is a commented-out copy of the default VCL logic.  If you
