@@ -4,8 +4,8 @@ DEPENDENCIES
     metadata: true
 
 GRAPH
-  apt (2.6.1)
-  chef-varnish (1.0.6)
+  apt (2.7.0)
+  chef-varnish (1.1.0)
     apt (>= 0.0.0)
     tar (~> 0.6.0)
     yum (>= 0.0.0)
