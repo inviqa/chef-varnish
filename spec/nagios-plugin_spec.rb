@@ -16,6 +16,23 @@ describe 'chef-varnish::nagios-plugin' do
     end
   end
 
+  context 'when plugin directory does not exist' do
+    let (:chef_run) {
+      ChefSpec::SoloRunner.new do |node|
+        node.set['varnish']['nagios_plugin_dir'] = '/foo'
+      end.converge(described_recipe)
+    }
+
+    before {
+      allow(Dir).to receive(:exists?).and_call_original
+      allow(Dir).to receive(:exists?).with('/foo').and_return(false)
+    }
+
+    it 'should create the plugin directory' do
+      expect(chef_run).to create_directory('/foo').with({recursive: true})
+    end
+  end
+
   context 'when installing on Ubuntu' do
     let (:chef_run) { ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '14.04').converge(described_recipe) }
 

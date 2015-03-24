@@ -21,6 +21,11 @@ package node['varnish']['dev_package'] do
   action :install
 end
 
+directory node['varnish']['nagios_plugin_dir'] do
+  recursive true
+  not_if { Dir.exists?(node['varnish']['nagios_plugin_dir']) }
+end
+
 tar_package node['varnish']['nagios_plugin_source'] do
   prefix node['varnish']['nagios_plugin_dir']
   creates "#{node['varnish']['nagios_plugin_dir']}/check_varnish"
