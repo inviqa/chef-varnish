@@ -17,13 +17,14 @@ Chef 0.10.0 or higher required (for Chef environment use).
 
 The following Opscode cookbooks are dependencies:
 
-* apt | yum
+* apt | yum | tar
 
 # Attributes
 
 Available attributes and default values:
 
 * `node['varnish']['daemon_config']` = "/etc/sysconfig/varnish"
+* `node['varnish']['dev_package']` = "varnish-libs-devel"
 * `node['varnish']['config_dir']` = "/etc/varnish"
 * `node['varnish']['VARNISH_VCL_CONF']` = "/etc/varnish/default.vcl"
 * `node['varnish']['VARNISH_LISTEN_PORT']` = 6081
@@ -39,6 +40,12 @@ Available attributes and default values:
 * `node['varnish']['VARNISH_STORAGE_SIZE']` = "1G"
 * `node['varnish']['VARNISH_STORAGE']` = "malloc" # file | malloc | persistent
 * `node['varnish']['VARNISH_TTL']` = 120
+* `node['varnish']['VARNISH_WORKING_DIR']` = ''
+* `node['varnish']['GeoIP_enabled']` = false
+* `node['varnish']['release_rpm']` = 'http://repo.varnish-cache.org/redhat/varnish-3.0/el5/noarch/varnish-release/varnish-release-3.0-1.noarch.rpm'
+* `node['varnish']['custom_parameters']` = {}
+* `node['varnish']['nagios_plugin_source']` = 'http://repo.varnish-cache.org/source/varnish-nagios-1.1.tar.gz'
+* `node['varnish']['nagios_plugin_dir']` = '/usr/lib64/nagios/plugins/'
 
 
 # Recipes
