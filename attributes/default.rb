@@ -1,8 +1,10 @@
 case platform_family
-when "rhel", "fedora", "suse"
-  default['varnish']['daemon_config'] = "/etc/sysconfig/varnish"
-when "debian"
-  default['varnish']['daemon_config'] = "/etc/default/varnish"
+  when 'debian', 'ubuntu'
+    default['varnish']['daemon_config'] = "/etc/default/varnish"
+    default['varnish']['dev_package'] = 'libvarnish-dev'
+  else
+    default['varnish']['daemon_config'] = "/etc/sysconfig/varnish"
+    default['varnish']['dev_package'] = 'varnish-libs-devel'
 end
 
 default['varnish']['config_dir'] = "/etc/varnish"
@@ -24,3 +26,5 @@ default['varnish']['VARNISH_WORKING_DIR'] = ''
 default['varnish']['GeoIP_enabled'] = false
 default['varnish']['release_rpm'] = 'http://repo.varnish-cache.org/redhat/varnish-3.0/el5/noarch/varnish-release/varnish-release-3.0-1.noarch.rpm'
 default['varnish']['custom_parameters'] = {}
+default['varnish']['nagios_plugin_source'] = 'http://repo.varnish-cache.org/source/varnish-nagios-1.1.tar.gz'
+default['varnish']['nagios_plugin_dir'] = '/usr/lib64/nagios/plugins/'

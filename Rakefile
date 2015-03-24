@@ -14,7 +14,7 @@ end
 
 # test task
 desc 'Run the default tests'
-task :test =>  ['prepare_sandbox', 'knife', 'foodcritic']
+task :test =>  ['prepare_sandbox', 'knife', 'foodcritic', 'spec']
 
 # default task (test)
 task :default => :test
