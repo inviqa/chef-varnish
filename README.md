@@ -47,6 +47,10 @@ Available attributes and default values:
 
 Adds the varnish-cache.org repository to apt or yum depending upon the base platform. Then installs the latest 3.* build of Varnish applying configuration based on the attributes defined within the recipe.
 
+## nagios-plugin
+
+Builds and installs the Varnish nagios plugin.
+
 # License and Author
 
 Author:: Alistair Stead (alistair@inviqa.com)
