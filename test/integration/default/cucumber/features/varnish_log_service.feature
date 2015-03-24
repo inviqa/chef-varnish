@@ -6,5 +6,6 @@ Feature: Varnish log service
 
   Scenario: varnishlog
     Given Varnish is installed
+    And Varnish is started
     When I run varnishlog
     Then I should see ping

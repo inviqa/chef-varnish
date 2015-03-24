@@ -1,4 +1,0 @@
-cookbook "chef-varnish" do
-  configuration "default"
-  runtimes []
-end
