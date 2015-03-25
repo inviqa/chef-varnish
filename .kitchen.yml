@@ -14,3 +14,7 @@ suites:
     run_list:
       - recipe[chef-varnish::default]
     attributes:
+  - name: nagios-plugin
+      run_list:
+        - recipe[chef-varnish::nagios-plugin]
+      attributes:
