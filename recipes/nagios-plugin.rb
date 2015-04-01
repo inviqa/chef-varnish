@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+include_recipe 'build-essential'
+
 package node['varnish']['dev_package'] do
   action :install
 end

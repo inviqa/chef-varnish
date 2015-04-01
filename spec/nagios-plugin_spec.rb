@@ -8,6 +8,10 @@ describe 'chef-varnish::nagios-plugin' do
       end.converge(described_recipe)
     }
 
+    it 'should ensure build tools are installed' do
+      expect(chef_run).to include_recipe('build-essential::default')
+    end
+
     it 'should create the plugin executable' do
       expect(chef_run).to install_tar_package('http://example.com/file.tar.gz').with({
         prefix: '/foo',

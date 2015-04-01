@@ -9,6 +9,7 @@ version          '1.1.0'
 depends "apt"
 depends "yum"
 depends 'tar', '~> 0.6.0'
+depends 'build-essential'
 
 %w{redhat centos scientific fedora debian ubuntu arch freebsd amazon}.each do |os|
   supports os

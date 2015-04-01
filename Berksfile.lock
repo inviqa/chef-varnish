@@ -5,8 +5,10 @@ DEPENDENCIES
 
 GRAPH
   apt (2.7.0)
+  build-essential (2.2.2)
   chef-varnish (1.1.0)
     apt (>= 0.0.0)
+    build-essential (>= 0.0.0)
     tar (~> 0.6.0)
     yum (>= 0.0.0)
   tar (0.6.0)
