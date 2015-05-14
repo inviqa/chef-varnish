@@ -41,7 +41,7 @@ if platform_family?("rhel", "fedora", "suse")
   end
 end
 
-if platform?("ubuntu", "debian")
+if platform_family?('debian')
   include_recipe "apt"
   apt_repository "varnish-cache.org" do
     uri "http://repo.varnish-cache.org/#{:platform}/"
@@ -53,10 +53,11 @@ if platform?("ubuntu", "debian")
   end
 end
 
-pkgs = value_for_platform_family(
-  [ "rhel", "fedora", "suse" ] => %w{ varnish-release varnish },
-  [ "debian" ] => %w{ varnish }
-)
+pkgs = %w{ varnish }
+
+if platform_family?('rhel', 'fedora', 'suse') && node['varnish']['release_rpm']
+  pkgs.unshift('varnish-release')
+end
 
 pkgs.each do |pkg|
   package pkg do
