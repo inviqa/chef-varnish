@@ -20,15 +20,23 @@
 require 'shellwords'
 
 if platform_family?("rhel", "fedora", "suse")
-  bash "varnish-cache.org" do
-    user "root"
-    code <<-EOH
-      rpm -q varnish-release || rpm --nosignature -i #{node['varnish']['release_rpm']}
-    EOH
-  end
-  ruby_block "Flush yum cache" do
-    block do
-      Chef::Provider::Package::Yum::YumCache.instance.reload
+  if node['varnish']['release_rpm']
+    bash "varnish-cache.org" do
+      user "root"
+      code <<-EOH
+        rpm -q varnish-release || rpm --nosignature -i #{node['varnish']['release_rpm']}
+      EOH
+    end
+    ruby_block "Flush yum cache" do
+      block do
+        Chef::Provider::Package::Yum::YumCache.instance.reload
+      end
+    end
+  else
+    yum_repository 'varnish' do
+      description "Varnish #{node['varnish']['version']} for Enterprise Linux #{node['varnish']['release_elversion']} - $basearch"
+      baseurl node['varnish']['release_baseurl']
+      gpgcheck false
     end
   end
 end
