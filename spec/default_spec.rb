@@ -15,14 +15,14 @@ describe 'chef-varnish::default' do
   end
 
   context 'with launch parameters' do
-    let (:chef_run) {
+    let (:chef_run) do
       ChefSpec::SoloRunner.new(platform: 'centos', version: '6.5') do |node|
         node.set['varnish']['custom_parameters'] = {
-          "esi_syntax" => "0x2",
-          "cli_buffer" => "16384"
+          'esi_syntax' => '0x2',
+          'cli_buffer' => '16384'
         }
       end.converge(described_recipe)
-    }
+    end
 
     it 'should use the launch parameters in the daemon options' do
       expect(chef_run).to render_file('/etc/sysconfig/varnish')
@@ -31,14 +31,12 @@ describe 'chef-varnish::default' do
   end
 
   context 'ubuntu default run' do
-    let (:chef_run) {
+    let (:chef_run) do
       ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '14.04').converge(described_recipe)
-    }
+    end
 
     it 'should install the varnish apt repository' do
-      expect(chef_run).to add_apt_repository('varnish-cache.org').with({
-        :components => ['varnish-3.0']
-      })
+      expect(chef_run).to add_apt_repository('varnish-cache.org').with(components: ['varnish-3.0'])
     end
   end
 end

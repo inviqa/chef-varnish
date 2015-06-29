@@ -53,7 +53,7 @@ if platform_family?('debian')
   end
 end
 
-pkgs = %w{ varnish }
+pkgs = %w(varnish)
 
 if platform_family?('rhel', 'fedora', 'suse') && node['varnish']['release_rpm']
   pkgs.unshift('varnish-release')
@@ -65,9 +65,7 @@ pkgs.each do |pkg|
   end
 end
 
-if node['varnish']['GeoIP_enabled']
-  include_recipe 'chef-varnish::geoip'
-end
+include_recipe 'chef-varnish::geoip' if node['varnish']['GeoIP_enabled']
 
 template "#{node['varnish']['config_dir']}/default.vcl" do
   source 'default.vcl.erb'
@@ -75,7 +73,7 @@ template "#{node['varnish']['config_dir']}/default.vcl" do
   group 'root'
   mode 0644
   variables(
-    :params => node['varnish']
+    params: node['varnish']
   )
 end
 
@@ -85,17 +83,16 @@ template node['varnish']['daemon_config'] do
   group 'root'
   mode 0644
   variables(
-    :params => node['varnish']
+    params: node['varnish']
   )
 end
 
 service 'varnish' do
-  supports :restart => true, :reload => true
-  action [ :enable, :start ]
+  supports restart: true, reload: true
+  action [:enable, :start]
 end
 
 service 'varnishlog' do
-  supports :restart => true, :reload => true
-  action [ :enable, :start ]
+  supports restart: true, reload: true
+  action [:enable, :start]
 end
-
