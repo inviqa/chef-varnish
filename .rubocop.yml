@@ -1,14 +1,12 @@
-AllCops:
-  Exclude:
-    - 'tmp/**/*'
-
 Metrics/LineLength:
   Max: 120
 
 Lint/AmbiguousRegexpLiteral:
   Exclude:
    - test/**/features/**/*.rb
+   - tmp/**/test/**/features/**/*.rb
 
 Lint/ParenthesesAsGroupedExpression:
   Exclude:
    - spec/**/*
+   - tmp/**/spec/**/*
