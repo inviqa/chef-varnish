@@ -47,6 +47,18 @@ Available attributes and default values:
 
 Adds the varnish-cache.org repository to apt or yum depending upon the base platform. Then installs the latest 3.* build of Varnish applying configuration based on the attributes defined within the recipe.
 
+# Contributing
+
+Contributions are welcome. To get started install all the project dependencies with bundler:
+
+    bundle install
+    
+Create branches from master and raise pull requests against master.
+
+chef-varnish uses various testing and analysis tools such as chef-spec, foodcritic and rubocop. These can all be run from a single Rake task:
+
+    bundle exec rake test
+
 # License and Author
 
 Author:: Alistair Stead (alistair@inviqa.com)
