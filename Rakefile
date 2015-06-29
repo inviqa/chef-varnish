@@ -14,7 +14,7 @@ end
 
 # test task
 desc 'Run the default tests'
-task :test =>  ['prepare_sandbox', 'knife', 'foodcritic', 'spec']
+task :test =>  ['prepare_sandbox', 'knife', 'foodcritic', 'rubocop', 'spec']
 
 # default task (test)
 task :default => :test
@@ -39,6 +39,12 @@ task :foodcritic do
   else
     puts "WARN: foodcritic run is skipped as Ruby #{RUBY_VERSION} is < 1.9.2."
   end
+end
+
+desc 'Runs rubocop code style checker'
+task :rubocop do
+  Rake::Task[:prepare_sandbox].invoke
+  sh "rubocop #{sandbox_path}"
 end
 
 # sandbox helper
