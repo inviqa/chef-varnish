@@ -34,7 +34,9 @@ if platform_family?('rhel', 'fedora', 'suse')
     end
   else
     yum_repository 'varnish' do
-      description "Varnish #{node['varnish']['version']} for Enterprise Linux #{node['varnish']['release_elversion']} - $basearch"
+      description <<-EOH
+         Varnish #{node['varnish']['version']} for Enterprise Linux #{node['varnish']['release_elversion']} - $basearch
+      EOH
       baseurl node['varnish']['release_baseurl']
       gpgcheck false
     end
@@ -44,16 +46,16 @@ end
 if platform_family?('debian')
   include_recipe 'apt'
   apt_repository 'varnish-cache.org' do
-    uri 'http://repo.varnish-cache.org/#{:platform}/'
+    uri "http://repo.varnish-cache.org/#{:platform}/"
     distribution node['lsb']['codename']
     components ['varnish-3.0']
     key 'http://repo.varnish-cache.org/debian/GPG-key.txt'
     deb_src true
-    notifies :run, "execute[apt-get update]", :immediately
+    notifies :run, 'execute[apt-get update]', :immediately
   end
 end
 
-pkgs = %w{ varnish }
+pkgs = %w(varnish)
 
 if platform_family?('rhel', 'fedora', 'suse') && node['varnish']['release_rpm']
   pkgs.unshift('varnish-release')
@@ -65,9 +67,7 @@ pkgs.each do |pkg|
   end
 end
 
-if node['varnish']['GeoIP_enabled']
-  include_recipe 'chef-varnish::geoip'
-end
+include_recipe 'chef-varnish::geoip' if node['varnish']['GeoIP_enabled']
 
 template "#{node['varnish']['config_dir']}/default.vcl" do
   source 'default.vcl.erb'
@@ -75,7 +75,7 @@ template "#{node['varnish']['config_dir']}/default.vcl" do
   group 'root'
   mode 0644
   variables(
-    :params => node['varnish']
+    params: node['varnish']
   )
 end
 
@@ -85,17 +85,16 @@ template node['varnish']['daemon_config'] do
   group 'root'
   mode 0644
   variables(
-    :params => node['varnish']
+    params: node['varnish']
   )
 end
 
 service 'varnish' do
-  supports :restart => true, :reload => true
-  action [ :enable, :start ]
+  supports restart: true, reload: true
+  action [:enable, :start]
 end
 
 service 'varnishlog' do
-  supports :restart => true, :reload => true
-  action [ :enable, :start ]
+  supports restart: true, reload: true
+  action [:enable, :start]
 end
-

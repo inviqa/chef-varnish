@@ -14,10 +14,10 @@ end
 
 # test task
 desc 'Run the default tests'
-task :test =>  ['prepare_sandbox', 'knife', 'foodcritic', 'spec']
+task test: %w(prepare_sandbox knife foodcritic rubocop spec)
 
 # default task (test)
-task :default => :test
+task default: :test
 
 # knife test
 desc 'Runs knife cookbook test'
@@ -32,18 +32,22 @@ desc 'Runs foodcritic linter'
 task :foodcritic do
   Rake::Task[:prepare_sandbox].invoke
 
-  if Gem::Version.new("1.9.2") <= Gem::Version.new(RUBY_VERSION.dup)
-    if sh "foodcritic -C -f any #{sandbox_path}"
-      puts 'foodcritic tests passed!'
-    end
+  if Gem::Version.new('1.9.2') <= Gem::Version.new(RUBY_VERSION.dup)
+    puts 'foodcritic tests passed!' if sh "foodcritic -C -f any #{sandbox_path}"
   else
     puts "WARN: foodcritic run is skipped as Ruby #{RUBY_VERSION} is < 1.9.2."
   end
 end
 
+desc 'Runs rubocop code style checker'
+task :rubocop do
+  Rake::Task[:prepare_sandbox].invoke
+  sh "rubocop #{sandbox_path}"
+end
+
 # sandbox helper
 task :prepare_sandbox do
-  files = %w{*.md *.rb attributes definitions files providers recipes resources spec templates test}
+  files = %w(*.md *.rb attributes definitions files providers recipes resources spec templates test)
 
   rm_rf sandbox_path
   mkdir_p sandbox_path
