@@ -222,5 +222,6 @@ DEPENDENCIES
   minitest (~> 3.0.0)
   nokogiri (~> 1.5.0)
   rake
+  rubocop
   test-kitchen
   vagrant-wrapper
