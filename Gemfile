@@ -13,5 +13,6 @@ gem 'test-kitchen'
 gem 'kitchen-vagrant'
 gem 'vagrant-wrapper'
 gem 'rubocop'
+gem 'berkshelf'
 
 gem 'ohai', '~> 7.4.1'
