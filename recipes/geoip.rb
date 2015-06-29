@@ -2,12 +2,14 @@
 package 'GeoIP-devel'
 package 'wget'
 
+geolite_url = 'http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz'
+
 bash 'download geolite data' do
   cwd '/tmp'
   code <<-EOH
-        rm -f "GeoIP.dat.gz" && wget "http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz" || exit 1
-        mkdir -p "/usr/share/GeoIP/" && zcat "GeoIP.dat.gz" > "/usr/share/GeoIP/GeoIP.dat"
-EOH
+    rm -f "GeoIP.dat.gz" && wget "#{geolite_url}" || exit 1
+    mkdir -p "/usr/share/GeoIP/" && zcat "GeoIP.dat.gz" > "/usr/share/GeoIP/GeoIP.dat"
+  EOH
   not_if 'test -f /usr/share/GeoIP/GeoIP.dat'
 end
 

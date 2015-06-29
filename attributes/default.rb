@@ -24,11 +24,9 @@ default['varnish']['VARNISH_WORKING_DIR'] = ''
 default['varnish']['GeoIP_enabled'] = false
 default['varnish']['version'] = '3.0'
 
-default['varnish']['release_elversion'] = if platform_family?('redhat')
-                                            node['platform_version'].to_i
-                                          else
-                                            5
-end
-
+default['varnish']['release_elversion'] = platform_family?('redhat') ? node['platform_version'].to_i : 5
+# rubocop:disable Metrics/LineLength
 default['varnish']['release_baseurl'] = "http://repo.varnish-cache.org/redhat/varnish-#{node['varnish']['version']}/el#{node['varnish']['release_elversion']}/$basearch/"
+# rubocop:enable Metrics/LineLength
+
 default['varnish']['custom_parameters'] = {}

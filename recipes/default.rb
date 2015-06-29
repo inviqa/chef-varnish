@@ -34,7 +34,9 @@ if platform_family?('rhel', 'fedora', 'suse')
     end
   else
     yum_repository 'varnish' do
-      description "Varnish #{node['varnish']['version']} for Enterprise Linux #{node['varnish']['release_elversion']} - $basearch"
+      description <<-EOH
+         Varnish #{node['varnish']['version']} for Enterprise Linux #{node['varnish']['release_elversion']} - $basearch
+      EOH
       baseurl node['varnish']['release_baseurl']
       gpgcheck false
     end
@@ -44,7 +46,7 @@ end
 if platform_family?('debian')
   include_recipe 'apt'
   apt_repository 'varnish-cache.org' do
-    uri 'http://repo.varnish-cache.org/#{:platform}/'
+    uri "http://repo.varnish-cache.org/#{:platform}/"
     distribution node['lsb']['codename']
     components ['varnish-3.0']
     key 'http://repo.varnish-cache.org/debian/GPG-key.txt'
