@@ -4,10 +4,12 @@ license          "Apache 2.0"
 description      "Installs/Configures chef-varnish"
 name             "chef-varnish"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          "1.0.6"
+version          '1.1.0'
 
 depends "apt"
 depends "yum"
+depends 'tar', '~> 0.6.0'
+depends 'build-essential'
 
 %w{redhat centos scientific fedora debian ubuntu arch freebsd amazon}.each do |os|
   supports os

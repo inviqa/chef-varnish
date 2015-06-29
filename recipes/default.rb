@@ -49,7 +49,7 @@ if platform_family?('debian')
     components ['varnish-3.0']
     key 'http://repo.varnish-cache.org/debian/GPG-key.txt'
     deb_src true
-    notifies :run, "execute[apt-get update]", :immediately
+    notifies :run, 'execute[apt-get update]', :immediately
   end
 end
 
