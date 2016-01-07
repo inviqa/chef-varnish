@@ -42,3 +42,4 @@ describe 'chef-varnish::default' do
     end
   end
 end
+
