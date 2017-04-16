@@ -11,6 +11,7 @@ include "/etc/varnish/geoip.vcl";
 backend default {
   .host = "<%= @params[:VARNISH_BACKEND_ADDRESS] %>";
   .port = "<%= @params[:VARNISH_BACKEND_PORT] %>";
+  .max_connections = 400;
 }
 
 # Below is a commented-out copy of the default VCL logic.  If you
