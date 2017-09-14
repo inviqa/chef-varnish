@@ -20,18 +20,18 @@
 require 'shellwords'
 
 if platform_family?('rhel', 'fedora', 'suse')
-  packagecloud_repo "#{node['varnish']['repository']}" do
-    type "rpm"
+  packagecloud_repo (node['varnish']['repository']).to_s do
+    type 'rpm'
   end
 end
 
-if platform_family?("debian")
-  packagecloud_repo "#{node['varnish']['repository']}" do
-    type "deb"
+if platform_family?('debian')
+  packagecloud_repo (node['varnish']['repository']).to_s do
+    type 'deb'
   end
 end
 
-pkgs = %w{ varnish }
+pkgs = %w( varnish )
 
 pkgs.each do |pkg|
   package pkg do
@@ -39,9 +39,7 @@ pkgs.each do |pkg|
   end
 end
 
-if node['varnish']['GeoIP_enabled']
-  include_recipe 'chef-varnish::geoip'
-end
+include_recipe 'chef-varnish::geoip' if node['varnish']['GeoIP_enabled']
 
 template "#{node['varnish']['config_dir']}/default.vcl" do
   source 'default.vcl.erb'
@@ -49,7 +47,7 @@ template "#{node['varnish']['config_dir']}/default.vcl" do
   group 'root'
   mode 0644
   variables(
-    :params => node['varnish']
+    params: node['varnish']
   )
 end
 
@@ -59,16 +57,16 @@ template node['varnish']['daemon_config'] do
   group 'root'
   mode 0644
   variables(
-    :params => node['varnish']
+    params: node['varnish']
   )
 end
 
 service 'varnish' do
-  supports :restart => true, :reload => true
-  action [ :enable, :start ]
+  supports restart: true, reload: true
+  action [:enable, :start]
 end
 
 service 'varnishlog' do
-  supports :restart => true, :reload => true
-  action [ :enable, :start ]
+  supports restart: true, reload: true
+  action [:enable, :start]
 end

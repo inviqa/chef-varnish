@@ -1,4 +1,4 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
 gem 'cucumber',   '~> 1.2.1'
 gem 'httparty',   '~> 0.8.3'

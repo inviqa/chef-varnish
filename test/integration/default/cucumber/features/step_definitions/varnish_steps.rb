@@ -1,6 +1,5 @@
 
 Given /^Varnish is installed$/ do
-
 end
 
 Given /^Varnish is started$/ do
