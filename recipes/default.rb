@@ -33,10 +33,6 @@ end
 
 pkgs = %w{ varnish }
 
-if platform_family?('rhel', 'fedora', 'suse') && node['varnish']['release_rpm']
-  pkgs.unshift('varnish-release')
-end
-
 pkgs.each do |pkg|
   package pkg do
     action :install
