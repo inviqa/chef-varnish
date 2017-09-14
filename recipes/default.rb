@@ -20,36 +20,14 @@
 require 'shellwords'
 
 if platform_family?('rhel', 'fedora', 'suse')
-  if node['varnish']['release_rpm']
-    bash 'varnish-cache.org' do
-      user 'root'
-      code <<-EOH
-        rpm -q varnish-release || rpm --nosignature -i #{node['varnish']['release_rpm']}
-      EOH
-    end
-    ruby_block 'Flush yum cache' do
-      block do
-        Chef::Provider::Package::Yum::YumCache.instance.reload
-      end
-    end
-  else
-    yum_repository 'varnish' do
-      description "Varnish #{node['varnish']['version']} for Enterprise Linux #{node['varnish']['release_elversion']} - $basearch"
-      baseurl node['varnish']['release_baseurl']
-      gpgcheck false
-    end
+  packagecloud_repo "#{node['varnish']['repository']}" do
+    type "rpm"
   end
 end
 
-if platform_family?('debian')
-  include_recipe 'apt'
-  apt_repository 'varnish-cache.org' do
-    uri 'http://repo.varnish-cache.org/#{:platform}/'
-    distribution node['lsb']['codename']
-    components ['varnish-3.0']
-    key 'http://repo.varnish-cache.org/debian/GPG-key.txt'
-    deb_src true
-    notifies :run, "execute[apt-get update]", :immediately
+if platform_family?("debian")
+  packagecloud_repo "#{node['varnish']['repository']}" do
+    type "deb"
   end
 end
 
@@ -98,4 +76,3 @@ service 'varnishlog' do
   supports :restart => true, :reload => true
   action [ :enable, :start ]
 end
-
