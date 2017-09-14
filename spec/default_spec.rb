@@ -29,14 +29,4 @@ describe 'chef-varnish::default' do
         .with_content(match(/-s \${VARNISH_STORAGE} \\\s*-p esi_syntax=0x2 \\\s*-p cli_buffer=16384/m))
     end
   end
-
-  context 'ubuntu default run' do
-    let (:chef_run) do
-      ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '14.04').converge(described_recipe)
-    end
-
-    it 'should install the varnish apt repository' do
-      expect(chef_run).to add_apt_repository('varnish-cache.org').with(components: ['varnish-3.0'])
-    end
-  end
 end

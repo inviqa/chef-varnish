@@ -19,16 +19,8 @@
 
 require 'shellwords'
 
-if platform_family?('rhel', 'fedora', 'suse')
-  packagecloud_repo (node['varnish']['repository']).to_s do
-    type 'rpm'
-  end
-end
-
-if platform_family?('debian')
-  packagecloud_repo (node['varnish']['repository']).to_s do
-    type 'deb'
-  end
+packagecloud_repo (node['varnish']['repository']).to_s do
+  type node['varnish']['package_type']
 end
 
 pkgs = %w( varnish )
