@@ -102,7 +102,9 @@ DAEMON_OPTS="-a ${VARNISH_LISTEN_ADDRESS}:${VARNISH_LISTEN_PORT} \
              -T ${VARNISH_ADMIN_LISTEN_ADDRESS}:${VARNISH_ADMIN_LISTEN_PORT} \
              -t ${VARNISH_TTL} \
              -w ${VARNISH_MIN_THREADS},${VARNISH_MAX_THREADS},${VARNISH_THREAD_TIMEOUT} \
+             <% if @params[:VARNISH_UID_SWITCH] %>
              -u varnish -g varnish \
+             <% end %>
              -S ${VARNISH_SECRET_FILE} \
              <% if @params[:VARNISH_WORKING_DIR].to_s != '' %>
                  -n <%= @params[:VARNISH_WORKING_DIR] %> \
@@ -112,7 +114,7 @@ DAEMON_OPTS="-a ${VARNISH_LISTEN_ADDRESS}:${VARNISH_LISTEN_PORT} \
              <% end %>
              -s ${VARNISH_STORAGE} \
              <%= (node['varnish']['custom_parameters'] || []).map { |param_key, param_value|
-                 "-p #{Shellwords.escape(param_key)}=#{Shellwords.escape(param_value)}" }.join(" \\\n") 
+                 "-p #{Shellwords.escape(param_key)}=#{Shellwords.escape(param_value)}" }.join(" \\\n")
              %>"
 
 

@@ -21,6 +21,7 @@ default['varnish']['VARNISH_STORAGE_SIZE'] = '1G'
 default['varnish']['VARNISH_STORAGE'] = 'malloc' # file | malloc | persistent
 default['varnish']['VARNISH_TTL'] = 120
 default['varnish']['VARNISH_WORKING_DIR'] = ''
+default['varnish']['VARNISH_UID_SWITCH'] = true
 default['varnish']['GeoIP_enabled'] = false
 default['varnish']['version'] = '3.0'
 
