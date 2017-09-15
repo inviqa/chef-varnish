@@ -28,7 +28,7 @@ default['varnish']['version'] = '3.0'
 default['varnish']['custom_parameters'] = {}
 default['varnish']['repository'] = "varnishcache/varnish#{node['varnish']['version'].delete('.')}"
 
-default['varnish']['package_type'] = if platform_family?('rhel', 'fedora', 'suse')
+default['varnish']['package_type'] = if platform_family?('rhel', 'fedora', 'suse', 'amazon')
   'rpm'
 else
   'deb'
