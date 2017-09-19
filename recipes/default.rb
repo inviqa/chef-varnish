@@ -19,6 +19,7 @@
 
 require 'shellwords'
 
+node.default['varnish']['repository'] = "varnishcache/varnish#{node['varnish']['version'].delete('.')}"
 packagecloud_repo (node['varnish']['repository']).to_s do
   type node['varnish']['package_type']
 end
@@ -67,4 +68,5 @@ end
 service 'varnishlog' do
   supports restart: true, reload: true
   action [:enable, :start]
+  only_if { node['varnish']['use_varnishlog_service'] }
 end

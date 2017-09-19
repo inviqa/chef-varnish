@@ -26,7 +26,6 @@ default['varnish']['GeoIP_enabled'] = false
 default['varnish']['version'] = '3.0'
 
 default['varnish']['custom_parameters'] = {}
-default['varnish']['repository'] = "varnishcache/varnish#{node['varnish']['version'].delete('.')}"
 
 default['varnish']['package_type'] = if platform_family?('rhel', 'fedora', 'suse', 'amazon')
                                        'rpm'
@@ -36,6 +35,8 @@ default['varnish']['package_type'] = if platform_family?('rhel', 'fedora', 'suse
 
 default['varnish']['VARNISH_SECRET'] = ''
 default['varnish']['VARNISH_SECRET_FILE'] = '/etc/varnish/secret'
+
+default['varnish']['use_varnishlog_service'] = true
 
 default['varnish']['GeoIP2']['enabled'] = false
 default['varnish']['GeoIP2']['database_location'] = '/etc/varnish/geoipdb.mmdb'
