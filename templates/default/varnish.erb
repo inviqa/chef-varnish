@@ -97,7 +97,7 @@ VARNISH_TTL=<%= @params[:VARNISH_TTL] %>
 #
 # # DAEMON_OPTS is used by the init script.  If you add or remove options, make
 # # sure you update this section, too.
-DAEMON_OPTS="-a ${VARNISH_LISTEN_ADDRESS}:<%= @params[:VARNISH_LISTEN_PORT] %> \
+DAEMON_OPTS="-a <% if @params[:VARNISH_LISTEN_ADDRESS] %><%= @params[:VARNISH_LISTEN_ADDRESS] %><% end %>:<%= @params[:VARNISH_LISTEN_PORT] %> \
              -f <%= @params[:VARNISH_VCL_CONF] %> \
              -T <%= @params[:VARNISH_ADMIN_LISTEN_ADDRESS] %>:<%= @params[:VARNISH_ADMIN_LISTEN_PORT] %> \
              -t <%= @params[:VARNISH_TTL] %> \
@@ -113,9 +113,9 @@ DAEMON_OPTS="-a ${VARNISH_LISTEN_ADDRESS}:<%= @params[:VARNISH_LISTEN_PORT] %> \
                  -p 'cc_command=exec cc -fpic -shared -Wl,-x -L/usr/local/lib -lGeoIP -o %o %s' \
              <% end %>
              -s <%- if @params[:VARNISH_STORAGE] === "file" -%>
-                 file,<%= @params[:VARNISH_STORAGE_FILE] %>,<%= @params[:VARNISH_STORAGE_SIZE] %>
+                 file,<%= @params[:VARNISH_STORAGE_FILE] %>,<%= @params[:VARNISH_STORAGE_SIZE] -%>
                  <%- else -%>
-                 malloc,<%= @params[:VARNISH_STORAGE_SIZE] %>
+                 malloc,<%= @params[:VARNISH_STORAGE_SIZE] -%>
                  <%- end -%> \
              <%= (node['varnish']['custom_parameters'] || []).map { |param_key, param_value|
                  "-p #{Shellwords.escape(param_key)}=#{Shellwords.escape(param_value)}" }.join(" \\\n")
