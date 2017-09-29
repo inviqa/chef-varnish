@@ -10,7 +10,7 @@ describe 'chef-varnish::default' do
 
     it 'should use the launch parameters in the daemon options' do
       expect(chef_run).to render_file('/etc/sysconfig/varnish')
-        .with_content(match(/-S \${VARNISH_SECRET_FILE} \\\s*-s \${VARNISH_STORAGE}/m))
+        .with_content(match(%r{-S /etc/varnish/secret \\\s*-s\s*malloc,1G}m))
     end
   end
 
@@ -26,7 +26,7 @@ describe 'chef-varnish::default' do
 
     it 'should use the launch parameters in the daemon options' do
       expect(chef_run).to render_file('/etc/sysconfig/varnish')
-        .with_content(match(/-s \${VARNISH_STORAGE} \\\s*-p esi_syntax=0x2 \\\s*-p cli_buffer=16384/m))
+        .with_content(match(%r{-s\s*malloc,1G\s*\\\s*-p esi_syntax=0x2 \\\s*-p cli_buffer=16384}m))
     end
   end
 end
