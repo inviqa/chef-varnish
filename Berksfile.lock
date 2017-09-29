@@ -5,7 +5,7 @@ DEPENDENCIES
 
 GRAPH
   apt (2.6.1)
-  chef-varnish (2.0.0)
+  chef-varnish (2.2.1)
     apt (>= 0.0.0)
     packagecloud (~> 0.3.0)
     yum (>= 0.0.0)
