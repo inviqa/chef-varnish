@@ -101,10 +101,16 @@ DAEMON_OPTS="-a <% if @params[:VARNISH_LISTEN_ADDRESS] %><%= @params[:VARNISH_LI
              -f <%= @params[:VARNISH_VCL_CONF] %> \
              -T <%= @params[:VARNISH_ADMIN_LISTEN_ADDRESS] %>:<%= @params[:VARNISH_ADMIN_LISTEN_PORT] %> \
              -t <%= @params[:VARNISH_TTL] %> \
+             <%- if @params[:version].to_f >= 4.0 -%>
+             -p thread_pool_min=<%= @params[:VARNISH_MIN_THREADS] %> \
+             -p thread_pool_max=<%= @params[:VARNISH_MAX_THREADS] %> \
+             -p thread_pool_timeout=<%= @params[:VARNISH_THREAD_TIMEOUT] %> \
+             <%- else -%>
              -w <%= @params[:VARNISH_MIN_THREADS] %>,<%= @params[:VARNISH_MAX_THREADS] %>,<%= @params[:VARNISH_THREAD_TIMEOUT] %> \
-             <% if @params[:VARNISH_UID_SWITCH] %>
+             <%- end -%>
+             <%- if @params[:VARNISH_UID_SWITCH] -%>
              -u varnish -g varnish \
-             <% end %>
+             <%- end -%>
              -S <%= @params[:VARNISH_SECRET_FILE] %> \
              <% if @params[:VARNISH_WORKING_DIR].to_s != '' %>
                  -n <%= @params[:VARNISH_WORKING_DIR] %> \
