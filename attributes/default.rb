@@ -1,8 +1,12 @@
-case platform_family
-when 'rhel', 'fedora', 'suse'
-  default['varnish']['daemon_config'] = '/etc/sysconfig/varnish'
-when 'debian'
-  default['varnish']['daemon_config'] = '/etc/default/varnish'
+if (attribute? 'init_package') && node['init_package'] == 'systemd'
+  default['varnish']['daemon_config'] = '/etc/varnish/varnish.params'
+else
+  case platform_family
+  when 'rhel', 'fedora', 'suse'
+    default['varnish']['daemon_config'] = '/etc/sysconfig/varnish'
+  when 'debian'
+    default['varnish']['daemon_config'] = '/etc/default/varnish'
+  end
 end
 
 default['varnish']['config_dir'] = '/etc/varnish'

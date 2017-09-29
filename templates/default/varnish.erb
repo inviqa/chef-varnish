@@ -87,9 +87,9 @@ VARNISH_STORAGE_SIZE=<%= @params[:VARNISH_STORAGE_SIZE] %>
 #
 # # Backend storage specification
 <% if @params[:VARNISH_STORAGE] === "file" %>
-VARNISH_STORAGE="file,${VARNISH_STORAGE_FILE},${VARNISH_STORAGE_SIZE}"
+VARNISH_STORAGE="file,<%= @params[:VARNISH_STORAGE_FILE] %>,<%= @params[:VARNISH_STORAGE_SIZE] %>"
 <% else %>
-VARNISH_STORAGE="malloc,${VARNISH_STORAGE_SIZE}"
+VARNISH_STORAGE="malloc,<%= @params[:VARNISH_STORAGE_SIZE] %>"
 <% end %>
 #
 # # Default TTL used when the backend does not specify one
@@ -97,22 +97,26 @@ VARNISH_TTL=<%= @params[:VARNISH_TTL] %>
 #
 # # DAEMON_OPTS is used by the init script.  If you add or remove options, make
 # # sure you update this section, too.
-DAEMON_OPTS="-a ${VARNISH_LISTEN_ADDRESS}:${VARNISH_LISTEN_PORT} \
-             -f ${VARNISH_VCL_CONF} \
-             -T ${VARNISH_ADMIN_LISTEN_ADDRESS}:${VARNISH_ADMIN_LISTEN_PORT} \
-             -t ${VARNISH_TTL} \
-             -w ${VARNISH_MIN_THREADS},${VARNISH_MAX_THREADS},${VARNISH_THREAD_TIMEOUT} \
+DAEMON_OPTS="-a ${VARNISH_LISTEN_ADDRESS}:<%= @params[:VARNISH_LISTEN_PORT] %> \
+             -f <%= @params[:VARNISH_VCL_CONF] %> \
+             -T <%= @params[:VARNISH_ADMIN_LISTEN_ADDRESS] %>:<%= @params[:VARNISH_ADMIN_LISTEN_PORT] %> \
+             -t <%= @params[:VARNISH_TTL] %> \
+             -w <%= @params[:VARNISH_MIN_THREADS] %>,<%= @params[:VARNISH_MAX_THREADS] %>,<%= @params[:VARNISH_THREAD_TIMEOUT] %> \
              <% if @params[:VARNISH_UID_SWITCH] %>
              -u varnish -g varnish \
              <% end %>
-             -S ${VARNISH_SECRET_FILE} \
+             -S <%= @params[:VARNISH_SECRET_FILE] %> \
              <% if @params[:VARNISH_WORKING_DIR].to_s != '' %>
                  -n <%= @params[:VARNISH_WORKING_DIR] %> \
              <% end %>
              <% if node['varnish']['GeoIP_enabled'] %>
                  -p 'cc_command=exec cc -fpic -shared -Wl,-x -L/usr/local/lib -lGeoIP -o %o %s' \
              <% end %>
-             -s ${VARNISH_STORAGE} \
+             -s <%- if @params[:VARNISH_STORAGE] === "file" -%>
+                 file,<%= @params[:VARNISH_STORAGE_FILE] %>,<%= @params[:VARNISH_STORAGE_SIZE] %>
+                 <%- else -%>
+                 malloc,<%= @params[:VARNISH_STORAGE_SIZE] %>
+                 <%- end -%> \
              <%= (node['varnish']['custom_parameters'] || []).map { |param_key, param_value|
                  "-p #{Shellwords.escape(param_key)}=#{Shellwords.escape(param_value)}" }.join(" \\\n")
              %>"
