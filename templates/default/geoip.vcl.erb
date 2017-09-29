@@ -1,0 +1,13 @@
+import geoip2;
+
+sub geoip_load {
+    new db = geoip2.geoip2("<%= @varnish['GeoIP2']['database_location'] %>");
+}
+
+sub geoip_recv {
+    set req.http.X-Geoip-Country = db.lookup("country/names/en", std.ip(regsub(req.http.X-Forwarded-For, "[, ].*$", ""), client.ip));
+}
+
+sub vcl_init {
+    call geoip_load;
+}
