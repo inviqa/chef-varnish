@@ -94,7 +94,7 @@ GEM
     hashie (2.1.2)
     highline (1.6.21)
     hitimes (1.2.2)
-    httparty (0.8.3)
+    httparty (0.10.0)
       multi_json (~> 1.0)
       multi_xml
     ipaddress (0.8.0)
@@ -113,8 +113,8 @@ GEM
     mixlib-config (2.1.0)
     mixlib-log (1.6.0)
     mixlib-shellout (1.6.1)
-    multi_json (1.10.1)
-    multi_xml (0.5.5)
+    multi_json (1.14.1)
+    multi_xml (0.6.0)
     multipart-post (2.0.0)
     net-http-persistent (2.9.4)
     net-scp (1.2.1)
@@ -219,7 +219,7 @@ DEPENDENCIES
   chefspec (~> 4.2.0)
   cucumber (~> 1.2.1)
   foodcritic (~> 4.0.0)
-  httparty (~> 0.8.3)
+  httparty (~> 0.10.0)
   kitchen-vagrant
   minitest (~> 3.0.0)
   nokogiri (~> 1.6.3.1)
