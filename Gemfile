@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'cucumber',   '~> 1.2.1'
-gem 'httparty',   '~> 0.8.3'
+gem 'httparty',   '~> 0.10.0'
 gem 'minitest',   '~> 3.0.0'
 gem 'nokogiri',   '~> 1.6.3.1'
 gem 'chef',       '~> 11.16.0'
